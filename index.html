@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rose Day Card</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+  body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Dancing Script', cursive;
+  }
+
+  .slide {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 1s ease;
+  }
+
+  .slide1 {
+    background-color: #ffc0cb; /* Soft pink */
+    color: #6b2d5c;
+    padding: 20px;
+  }
+
+  .quote {
+    font-size: 1.5rem;
+    max-width: 80%;
+    margin-bottom: 40px;
+  }
+
+  .honey {
+    font-size: 3rem;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+  }
+
+  .honey::after {
+    content: "Tap";
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+    color: #6b2d5c;
+  }
+
+  .slide2 {
+    background-color: #ffd6e0; /* Slightly different soft pink */
+    color: #8b2d6b;
+    opacity: 0;
+    pointer-events: none;
+    padding: 20px;
+  }
+
+  .rose-day {
+    font-size: 3rem;
+    margin: 20px 0;
+  }
+
+  .my-honey {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  .image-container img {
+    max-width: 250px;
+    border-radius: 20px;
+    margin: 20px 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: transform 0.8s ease, opacity 1s ease;
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  .image-container img.show {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .message {
+    font-size: 1.5rem;
+    margin-top: 20px;
+  }
+
+  /* Mini roses background */
+  .slide2::before {
+    content: "🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹";
+    position: absolute;
+    font-size: 1.5rem;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-around;
+    pointer-events: none;
+  }
+
+  /* Falling hearts animation */
+  .heart {
+    position: absolute;
+    font-size: 1.2rem;
+    color: rgba(255,0,100,0.5);
+    animation: fall 5s linear infinite;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(-10%) rotate(0deg); opacity:1; }
+    100% { transform: translateY(110%) rotate(360deg); opacity:0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Slide 1 -->
+<div class="slide slide1" id="slide1">
+  <div class="quote">
+    "The biggest gift you give me is the freedom to be myself when I am with you. The comfort which your company gives me cannot be matched."
+  </div>
+  <div class="honey" id="honey">🍯</div>
+</div>
+
+<!-- Slide 2 -->
+<div class="slide slide2" id="slide2">
+  <div class="rose-day">Happy Rose Day</div>
+  <div class="my-honey">My Honey 🍯</div>
+  <div class="image-container">
+    <!-- REPLACE THE IMAGE BELOW WITH YOUR OWN IMAGE FILE -->
+    <!-- If your image file is in the same folder, just change 'myimage.jpg' -->
+    <img src="myimage.jpg" alt="My Honey" id="honeyImage">
+  </div>
+  <div class="message">🥰 For the Adorable & Brave partner 🌹</div>
+</div>
+
+<script>
+  const honey = document.getElementById('honey');
+  const slide1 = document.getElementById('slide1');
+  const slide2 = document.getElementById('slide2');
+  const honeyImage = document.getElementById('honeyImage');
+
+  honey.addEventListener('click', () => {
+    // Show Slide 2
+    slide1.style.opacity = 0;
+    slide2.style.opacity = 1;
+    slide2.style.pointerEvents = 'auto';
+
+    // Fade-in the image
+    setTimeout(() => {
+      honeyImage.classList.add('show');
+    }, 500);
+
+    // Create falling hearts
+    createHearts();
+  });
+
+  // Function to create falling hearts
+  function createHearts() {
+    for (let i = 0; i < 30; i++) {
+      let heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = 3 + Math.random() * 5 + 's';
+      heart.style.fontSize = 10 + Math.random() * 20 + 'px';
+      heart.innerText = '❤️';
+      document.body.appendChild(heart);
+
+      // Remove heart after animation
+      setTimeout(() => heart.remove(), 8000);
+    }
+  }
+</script>
+
+</body>
+</html>
